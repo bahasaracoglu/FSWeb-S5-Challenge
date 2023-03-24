@@ -41,8 +41,17 @@ const headerEkleyici = (secici) => {
   //
   // İPUCU: querySelector bir string alabilir (bknz: querySelector("#wrapper"))
   // fakat aynı zamanda bir değişken de alabilir (bknz: querySelector(secici))
+
+  //Değişken Gün--------------
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let currentDate = `${day} ${month} ${year}`;
+  //----------------------------------------------
+
   const seciciDOM = document.querySelector(secici);
-  const headerCB = Header("Teknoloji Zamanı", "24 Mart 2023", "sağdaki yazı");
+  const headerCB = Header("Teknoloji Zamanı", currentDate, "sağdaki yazı");
   seciciDOM.append(headerCB);
 };
 

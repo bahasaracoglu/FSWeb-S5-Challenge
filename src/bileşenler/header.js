@@ -42,7 +42,7 @@ const headerEkleyici = (secici) => {
   // İPUCU: querySelector bir string alabilir (bknz: querySelector("#wrapper"))
   // fakat aynı zamanda bir değişken de alabilir (bknz: querySelector(secici))
   const seciciDOM = document.querySelector(secici);
-  const headerCB = Header("asd", "asdas", "asdasd");
+  const headerCB = Header("Teknoloji Zamanı", "24 Mart 2023", "sağdaki yazı");
   seciciDOM.append(headerCB);
 };
 

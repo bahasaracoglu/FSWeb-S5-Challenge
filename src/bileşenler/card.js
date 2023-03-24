@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const Card = (makale) => {
   // GÖREV 5
   // ---------------------
@@ -17,7 +19,37 @@ const Card = (makale) => {
   //   </div>
   // </div>
   //
-}
+
+  const cardDiv = document.createElement("div");
+  cardDiv.classList.add("card");
+
+  const headlineDiv = document.createElement("div");
+  headlineDiv.classList.add("headline");
+  headlineDiv.textContent = makale.anabaslik;
+  cardDiv.append(headlineDiv);
+
+  const authorDiv = document.createElement("div");
+  authorDiv.classList.add("author");
+  cardDiv.append(authorDiv);
+
+  const imgCont = document.createElement("div");
+  imgCont.classList.add("img-container");
+  authorDiv.append(imgCont);
+
+  const imgElement = document.createElement("img");
+  imgElement.src = makale.yazarFoto;
+  imgCont.append(imgElement);
+
+  const spanYazar = document.createElement("span");
+  spanYazar.textContent = makale.yazarAdi + " tarafından";
+  authorDiv.append(spanYazar);
+
+  cardDiv.addEventListener("click", function (event) {
+    console.log(headlineDiv.textContent);
+  });
+
+  return cardDiv;
+};
 
 const cardEkleyici = (secici) => {
   // GÖREV 6
@@ -28,6 +60,35 @@ const cardEkleyici = (secici) => {
   // Card bileşenini kullanarak yanıttaki her makale nesnesinden bir kart oluşturun.
   // Her cardı, fonksiyona iletilen seçiciyle eşleşen DOM'daki öğeye ekleyin.
   //
-}
 
-export { Card, cardEkleyici }
+  const seciciCardDOM = document.querySelector(secici);
+  axios
+    .get("http://localhost:5001/api/makaleler")
+    .then(function (response) {
+      // handle success
+
+      const data = [];
+
+      Object.values(response.data.makaleler).map((konular) => {
+        konular.forEach((element) => {
+          data.push(element);
+        });
+      });
+
+      data.forEach((makaleler) => {
+        seciciCardDOM.append(Card(makaleler));
+      });
+
+      console.log(response);
+      console.log(data);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function () {
+      // always executed
+    });
+};
+
+export { Card, cardEkleyici };
